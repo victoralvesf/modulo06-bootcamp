@@ -28,6 +28,21 @@ function User({navigation}) {
   const [stars, setStars] = useState([]);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const load = async (pageNumber = 1, gitUser) => {
+    const response = await api.get(`/users/${gitUser}/starred`, {
+      params: {page: pageNumber},
+    });
+
+    const data = pageNumber >= 2 ? [...stars, ...response.data] : response.data;
+
+    setStars(data);
+    setPage(pageNumber);
+    setRefreshing(false);
+    setLoading(false);
+  };
 
   useEffect(() => {
     async function getStars() {
@@ -35,14 +50,27 @@ function User({navigation}) {
       const propUser = navigation.getParam('user');
       setUser(propUser);
 
-      await api.get(`/users/${propUser.login}/starred`).then(response => {
-        setStars(response.data);
-        setLoading(false);
-      });
+      load(page, propUser.login);
     }
 
     getStars();
   }, []);
+
+  const loadMore = () => {
+    const nextPage = page + 1;
+
+    load(nextPage, user.login);
+  };
+
+  const refreshList = () => {
+    setLoading(true);
+    setRefreshing(true);
+    load(1, user.login);
+  };
+
+  function handleNavigate(repository) {
+    navigation.navigate('Repository', {repository});
+  }
 
   return (
     <Container>
@@ -59,9 +87,13 @@ function User({navigation}) {
       ) : (
         <Stars
           data={stars}
+          onRefresh={refreshList}
+          refreshing={refreshing}
+          onEndReachedThreshold={0.2}
+          onEndReached={() => loadMore()}
           keyExtractor={star => String(star.id)}
           renderItem={({item}) => (
-            <Starred>
+            <Starred onPress={() => handleNavigate(item)}>
               <OwnerAvatar source={{uri: item.owner.avatar_url}} />
               <Info>
                 <Title>{item.name}</Title>
@@ -78,6 +110,7 @@ function User({navigation}) {
 User.propTypes = {
   navigation: PropTypes.shape({
     getParam: PropTypes.func,
+    navigate: PropTypes.func,
   }).isRequired,
 };
 

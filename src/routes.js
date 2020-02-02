@@ -3,6 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 
 import Main from './pages/Main';
 import Profile, {navigationOptions} from './pages/Profile';
+import Repository, {repositoryOptions} from './pages/Repository';
 
 const Routes = createAppContainer(
   createStackNavigator(
@@ -16,6 +17,10 @@ const Routes = createAppContainer(
       Profile: {
         screen: Profile,
         navigationOptions,
+      },
+      Repository: {
+        screen: Repository,
+        navigationOptions: repositoryOptions,
       },
     },
     {
