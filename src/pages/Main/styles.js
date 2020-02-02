@@ -1,35 +1,38 @@
 import styled from 'styled-components/native';
 import {RectButton} from 'react-native-gesture-handler';
 
+import Colors from '../../themes/dark';
+
 export const Container = styled.View`
   flex: 1;
   padding: 30px;
-  background: #222;
+  background: ${Colors.background};
 `;
 
 export const Form = styled.View`
   flex-direction: row;
   padding-bottom: 20px;
   border-bottom-width: 1px;
-  border-color: #666;
+  border-color: ${Colors.card};
 `;
 
 export const Input = styled.TextInput.attrs({
-  placeholderTextColor: '#fff',
+  placeholderTextColor: Colors.white,
 })`
   flex: 1;
   height: 40px;
-  background: #333;
+  background: ${Colors.secondaryGray};
   border-radius: 4px;
   padding: 0 15px;
-  border: ${props => (props.error ? '1px solid red' : '1px solid #333')};
-  color: ${props => (props.error ? 'red' : '#fff')};
+  border: ${props =>
+    props.error ? '1px solid red' : `1px solid ${Colors.secondaryGray}`};
+  color: ${props => (props.error ? 'red' : Colors.white)};
 `;
 
 export const SubmitButton = styled(RectButton)`
   justify-content: center;
   align-items: center;
-  background: #7159c1;
+  background: ${Colors.primary};
   border-radius: 4px;
   margin-left: 10px;
   padding: 0 12px;
@@ -45,7 +48,7 @@ export const List = styled.FlatList.attrs({
 export const User = styled.View`
   align-items: center;
   margin: 0 15px 30px;
-  background: #333;
+  background: ${Colors.secondaryGray};
   padding: 15px;
   border-radius: 10px;
   position: relative;
@@ -55,12 +58,12 @@ export const Avatar = styled.Image`
   width: 64px;
   height: 64px;
   border-radius: 32px;
-  background: #555;
+  background: ${Colors.image};
 `;
 
 export const Name = styled.Text`
   font-size: 14px;
-  color: #fff;
+  color: ${Colors.white};
   font-weight: bold;
   margin-top: 4px;
   text-align: center;
@@ -69,7 +72,7 @@ export const Name = styled.Text`
 export const Bio = styled.Text.attrs({
   numberOfLines: 2,
 })`
-  color: #ddd;
+  color: ${Colors.text};
   text-align: center;
   font-size: 13px;
   line-height: 18px;
@@ -78,7 +81,7 @@ export const Bio = styled.Text.attrs({
 
 export const ProfileButton = styled(RectButton)`
   margin-top: 10px;
-  background: #7159c1;
+  background: ${Colors.primary};
   border-radius: 4px;
   align-self: stretch;
   justify-content: center;
@@ -87,7 +90,7 @@ export const ProfileButton = styled(RectButton)`
 `;
 
 export const ProfileButtonText = styled.Text`
-  color: #fff;
+  color: ${Colors.white};
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;

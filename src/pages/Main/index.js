@@ -21,13 +21,7 @@ import {
   RemoveUserButton,
 } from './styles';
 
-export default function Main({navigation}) {
-  Main.propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
-  };
-
+function Main({navigation}) {
   const [newUser, setNewUser] = useState('');
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(false);
@@ -127,3 +121,11 @@ export default function Main({navigation}) {
     </Container>
   );
 }
+
+Main.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
+
+export default Main;
