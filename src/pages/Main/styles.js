@@ -47,7 +47,7 @@ export const List = styled.FlatList.attrs({
 
 export const User = styled.View`
   align-items: center;
-  margin: 0 15px 30px;
+  margin: 0 0 20px;
   background: ${Colors.secondaryGray};
   padding: 15px;
   border-radius: 10px;
